@@ -15,14 +15,14 @@ function RendIPCStream (channel, streamOpts) {
   var self = this
   function ipcCallback (data) {
     if (typeof data === 'string') {
-      data = JSON.parse(data, bufferJson. reviver)
+      data = JSON.parse(data, bufferJson.reviver)
     }
     self.push(data)
   }
   ipc.on(this.channel, ipcCallback)
 
   this.on('finish', function () {
-    if (this.browserWindow) ipc.send(this.channel + '-finish')
+    ipc.send(this.channel + '-finish')
     delete this[channel]
   })
 
@@ -36,8 +36,15 @@ util.inherits(RendIPCStream, Duplex)
 
 RendIPCStream.prototype._read = function () { }
 
-RendIPCStream.prototype._write = function (chunk, enc, next) {
-  ipc.send(this.channel, chunk)
+RendIPCStream.prototype._write = function (data, enc, next) {
+  if (typeof data === 'string') {
+    data = JSON.stringify(data)
+  }
+  if (Buffer.isBuffer(data)) {
+    data = JSON.stringify(data, null, bufferJson.replacer)
+  }
+
+  ipc.send(this.channel, data)
   next()
 }
 

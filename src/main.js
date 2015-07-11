@@ -15,6 +15,9 @@ function MainIPCStream (channel, browserWindow, streamOpts) {
 
   var self = this
   function ipcCallback (event, data) {
+    if (typeof data === 'string') {
+      data = JSON.parse(data, bufferJson.reviver)
+    }
     self.push(data)
   }
   ipc.on(this.channel, ipcCallback)
