@@ -27,7 +27,7 @@ Usage
 
 ### Example 1: Pipe file from main process to renderer.
 
-**main.js:*
+**main.js:**
 
 ```js
 var app = require('app')
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 ### Example 2: Pipe file from renderer process to main.
 
-**main.js:*
+**main.js:**
 
 ```js
 var app = require('app')
