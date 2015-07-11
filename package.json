@@ -1,0 +1,36 @@
+{
+  "name": "electron-ipc-stream",
+  "version": "0.0.0",
+  "description": "Duplex stream over IPC for main/renderer to communicate with each other.",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jprichardson/electron-ipc-stream.git"
+  },
+  "keywords": [
+    "electron",
+    "electron-component",
+    "ipc",
+    "stream",
+    "streams",
+    "duplex",
+    "readable",
+    "writeable"
+  ],
+  "author": "JP Richardson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jprichardson/electron-ipc-stream/issues"
+  },
+  "homepage": "https://github.com/jprichardson/electron-ipc-stream#readme",
+  "devDependencies": {
+    "electron-window": "^0.4.2"
+  },
+  "dependencies": {
+    "buffer-json": "^1.0.0",
+    "is-electron-renderer": "^1.0.0"
+  }
+}
