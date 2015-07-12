@@ -1,7 +1,7 @@
 electron-ipc-stream
 ===================
 
-Duplex stream that runs over [Electron's IPC](https://github.com/atom/electron/tree/master/docs) mechanism.
+Duplex stream that run over [Electron's IPC](https://github.com/atom/electron/tree/master/docs) mechanism.
 
 
 Why?
