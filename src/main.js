@@ -1,6 +1,6 @@
 var bufferJson = require('buffer-json')
 var Duplex = require('stream').Duplex
-var ipc = require('ipc')
+var ipcMain = require('ipc-main')
 var util = require('util')
 
 function MainIPCStream (channel, browserWindow, streamOpts) {
@@ -20,14 +20,14 @@ function MainIPCStream (channel, browserWindow, streamOpts) {
     }
     self.push(data)
   }
-  ipc.on(this.channel, ipcCallback)
+  ipcMain.on(this.channel, ipcCallback)
 
   this.on('finish', function () {
     if (this.browserWindow) this.browserWindow.webContents.send(this.channel + '-finish')
-    delete ipc[this.channel]
+    ipcMain.removeListener(this.channel, ipcCallback)
   })
 
-  ipc.once(this.channel + '-finish', function () {
+  ipcMain.once(this.channel + '-finish', function () {
     self.push(null)
   })
 
