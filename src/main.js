@@ -1,7 +1,7 @@
-var bufferJson = require('buffer-json')
-var Duplex = require('stream').Duplex
-var ipcMain = require('ipc-main')
-var util = require('util')
+const bufferJson = require('buffer-json')
+const Duplex = require('stream').Duplex
+const ipcMain = require('electron').ipcMain
+const util = require('util')
 
 function MainIPCStream (channel, browserWindow, streamOpts) {
   if (!(this instanceof MainIPCStream)) {
@@ -13,23 +13,19 @@ function MainIPCStream (channel, browserWindow, streamOpts) {
   this.browserWindow = browserWindow
   this.channel = channel
 
-  var self = this
-  function ipcCallback (event, data) {
+  const ipcCallback = (event, data) => {
     if (typeof data === 'string') {
       data = JSON.parse(data, bufferJson.reviver)
     }
-    self.push(data)
+    this.push(data)
   }
   ipcMain.on(this.channel, ipcCallback)
 
-  this.on('finish', function () {
+  this.on('finish', () => {
     if (this.browserWindow) this.browserWindow.webContents.send(this.channel + '-finish')
     ipcMain.removeListener(this.channel, ipcCallback)
   })
-
-  ipcMain.once(this.channel + '-finish', function () {
-    self.push(null)
-  })
+  ipcMain.once(this.channel + '-finish', () => this.push(null))
 
   Duplex.call(this, streamOpts)
 }
