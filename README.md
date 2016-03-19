@@ -128,7 +128,7 @@ more detail. You also may need to adjust [`highWaterMark`](https://nodejs.org/ap
 
 ### JSON Objects
 
-It is completly safe to call `write` on either end of the stream with objects.
+It is completely safe to call `write` on either end of the stream with objects.
 
 source:
 
