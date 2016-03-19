@@ -1,6 +1,5 @@
 var crypt = require('crypto')
 var fs = require('fs')
-var ipc = require('ipc')
 var IPCStream = require('../../')
 var ipcs = new IPCStream('file')
 
